@@ -30,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Set the initial position of the image.
     imageContainer.style.left = ` - 100px`;
 
-    // Function to move the image across the screen.
+    /**
+     * Function to move the image across the screen.
+     */
     function moveImage() {
         imageContainer.style.transition = `left ${animationDuration}s linear`;
         imageContainer.style.left = `${screenWidth}px`;
