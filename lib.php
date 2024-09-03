@@ -95,16 +95,3 @@ function local_avatar_extend_navigation_user(
     theme_reset_all_caches();
 
 }
-
-/**
- * Extend the course navigation
- *
- * @param navigation_node $navigation
- * @param object $course
- * @param context $context
- *
- * @return void
- */
-function local_avatar_extend_navigation_course(navigation_node $navigation, object $course, context $context): void {
-
-}
