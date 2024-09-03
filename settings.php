@@ -34,19 +34,15 @@ if ($hassiteconfig) {
 
     $settings->add(
         new admin_setting_configcheckbox(
-            'local_avatar/enable',
+            'local_avatar/enabled',
             get_string('settings:enable', 'local_avatar'),
             get_string('settings:enable_desc', 'local_avatar'),
-            true,
+            1,
             get_string('settings:enabled', 'local_avatar'),
             get_string('settings:disabled', 'local_avatar')
         )
     );
 
     $ADMIN->add('localplugins', $settings);
-
-    // TODO: Plugin active/not.
-
-    // TODO: Admin externalpage with filemaanger for avatar images.
 
 }

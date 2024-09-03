@@ -27,7 +27,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 $plugin->component = 'local_avatar';
-$plugin->version = 2024090300;
+$plugin->version = 2024090302;
 $plugin->release = '4.1.0';
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->requires = 2022112800;

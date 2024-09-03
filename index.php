@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * EN language file
+ * Library functions
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -23,25 +23,29 @@
  * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
+defined('MOODLE_INTERNAL') || die();
+// Moodle-Konfigurationsdatei einbinden
+require_once(__DIR__.'/../../config.php');
 
-// Default.
-$string['pluginname'] = 'Pixelart Avatar';
-$string['myavatarsettings'] = 'My avatar settings';
+// Seiten-URL definieren
+$PAGE->set_url(new moodle_url('/local/myplugin/index.php'));
+$PAGE->set_context(context_system::instance());
+$PAGE->set_title('Mein Plugin');
+$PAGE->set_heading('Willkommen bei meinem Plugin');
 
-// Settings.
-$string['settings:enable'] = 'Enable avatars';
-$string['settings:enable_desc'] = 'Completely enable or disable the avatars plugin';
-$string['settings:enabled'] = 'Enabled';
-$string['settings:disabled'] = 'Disabled';
+// Authentifizierung erzwingen (falls erforderlich)
+require_login();
 
+// Header ausgeben
+echo $OUTPUT->header();
 
-// My avatar form.
-$string['myavatarform:showownavatar'] = 'Show own avatar';
-$string['myavatarform:showotheravatars'] = 'Show other avatars';
-$string['myavatarform:shownumberofavatars'] = 'Show number of avatars';
-$string['myavatarform:avatarsmovement'] = 'Avatars movement';
-$string['myavatarform:selectavatar'] = 'Select avatar';
+// Hauptinhalt
+echo '<div class="myplugin-content">';
+echo '<h2>Willkommen zu meinem lokalen Plugin!</h2>';
+echo '<p>Dies ist eine Beispielseite für ein lokales Moodle-Plugin.</p>';
+echo '<p>Sie können hier beliebige Inhalte oder Funktionen hinzufügen.</p>';
+echo '</div>';
 
-// Navigation.
-$string['nav:myavatar'] = 'My avatar';
+// Footer ausgeben
+echo $OUTPUT->footer();
 
