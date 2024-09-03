@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * EN language file
+ *
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -23,12 +23,4 @@
  * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
-
-// Default.
-$string['pluginname'] = 'Pixelart Avatar';
-
-// Settings.
-$string['settings:enable'] = 'Enable avatars';
-$string['settings:enable_desc'] = 'Completely enable or disable the avatars plugin';
-$string['settings:enabled'] = 'Enabled';
-$string['settings:disabled'] = 'Disabled';
+ 

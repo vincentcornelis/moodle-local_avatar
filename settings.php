@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * EN language file
+ * Plug-in admin settings.
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -24,11 +24,29 @@
  * @author    Vincent Cornelis
  **/
 
-// Default.
-$string['pluginname'] = 'Pixelart Avatar';
+defined('MOODLE_INTERNAL') || die;
 
-// Settings.
-$string['settings:enable'] = 'Enable avatars';
-$string['settings:enable_desc'] = 'Completely enable or disable the avatars plugin';
-$string['settings:enabled'] = 'Enabled';
-$string['settings:disabled'] = 'Disabled';
+global $ADMIN;
+
+if ($hassiteconfig) {
+
+    $settings = new admin_settingpage('local_avatar', get_string('pluginname', 'local_avatar'));
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'local_avatar/enable',
+            get_string('settings:enable', 'local_avatar'),
+            get_string('settings:enable_desc', 'local_avatar'),
+            true,
+            get_string('settings:enabled', 'local_avatar'),
+            get_string('settings:disabled', 'local_avatar')
+        )
+    );
+
+    $ADMIN->add('localplugins', $settings);
+
+    // TODO: Plugin active/not.
+
+    // TODO: Admin externalpage with filemaanger for avatar images.
+
+}
