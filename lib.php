@@ -23,17 +23,16 @@
  * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
-defined('MOODLE_INTERNAL') || die();
 
-function local_avatar_before_footer() {
-    global $PAGE;
+function local_avatar_before_footer(): void {
+    global $PAGE, $CFG;
 
-    // Check if we're on a course page
+    // Check if we're on a course page.
     if ($PAGE->pagetype === 'course-view') {
-        // Include the JavaScript file
+        // Include the JavaScript file.
         $PAGE->requires->js('/local/avatar/amd/src/avatar.js');
 
-        // Add the HTML for the moving image
+        // Add the HTML for the moving image.
         echo '<div id="image-container">
                 <img id="moving-image" src="' . $CFG->wwwroot . '/local/avatar/pix/pic.png" alt="Moving Image">
               </div>';
@@ -41,3 +40,60 @@ function local_avatar_before_footer() {
 }
 
 
+/**
+ * Doesn't really extend the user navigation, but edits the custom user menu items to add the avatar link.
+ *
+ * @param navigation_node $navigation
+ * @param object $user
+ * @param object $usercontext
+ * @param object $course
+ * @param object $coursecontext
+ *
+ * @return void
+ */
+function local_avatar_extend_navigation_user(
+    navigation_node $navigation,
+    object $user,
+    object $usercontext,
+    object $course,
+    object $coursecontext
+): void {
+
+    $enabled = get_config('local_avatar', 'enabled');
+
+    if (!$enabled) {
+        return;
+    }
+
+    $url = new moodle_url('/local/avatar/view/myavatar.php');
+    $myavataritem = get_string('nav:myavatar', 'local_avatar') . '|' . $url->get_path();
+
+    $custommenuitems = explode(PHP_EOL, get_config('core', 'customusermenuitems'));
+
+    if (!empty($custommenuitems)) {
+
+        // Don't add another menu item if it already exists.
+        if (in_array($myavataritem, $custommenuitems)) {
+            return;
+        }
+
+        // Check if we can add the avatar link after the profile link.
+        $myprofileindex = null;
+
+        foreach ($custommenuitems as $key => $custommenuitem) {
+            if (stristr($custommenuitem, 'profile.php')) {
+                $myprofileindex = $key;
+                break;
+            }
+        }
+
+        array_splice($custommenuitems, $myprofileindex + 1, 0, $myavataritem);
+
+    } else {
+        $custommenuitems[] = $myavataritem;
+    }
+
+    set_config('customusermenuitems', implode(PHP_EOL, $custommenuitems));
+    theme_reset_all_caches();
+
+}

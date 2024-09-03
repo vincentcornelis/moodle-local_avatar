@@ -32,3 +32,6 @@ $string['settings:enable'] = 'Enable avatars';
 $string['settings:enable_desc'] = 'Completely enable or disable the avatars plugin';
 $string['settings:enabled'] = 'Enabled';
 $string['settings:disabled'] = 'Disabled';
+
+// Navigation.
+$string['nav:myavatar'] = 'My avatar';
