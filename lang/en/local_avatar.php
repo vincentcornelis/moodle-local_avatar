@@ -26,6 +26,7 @@
 
 // Default.
 $string['pluginname'] = 'Pixelart Avatar';
+$string['myavatarsettings'] = 'My avatar settings';
 
 // Settings.
 $string['settings:enable'] = 'Enable avatars';
@@ -33,5 +34,14 @@ $string['settings:enable_desc'] = 'Completely enable or disable the avatars plug
 $string['settings:enabled'] = 'Enabled';
 $string['settings:disabled'] = 'Disabled';
 
+
+// My avatar form.
+$string['myavatarform:showownavatar'] = 'Show own avatar';
+$string['myavatarform:showotheravatars'] = 'Show other avatars';
+$string['myavatarform:shownumberofavatars'] = 'Show number of avatars';
+$string['myavatarform:avatarsmovement'] = 'Avatars movement';
+$string['myavatarform:selectavatar'] = 'Select avatar';
+
 // Navigation.
 $string['nav:myavatar'] = 'My avatar';
+

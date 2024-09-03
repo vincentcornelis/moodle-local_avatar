@@ -27,6 +27,7 @@
 namespace local_avatar\form;
 
 use moodleform;
+require_once($CFG->libdir . '/formslib.php');
 
 /**
  * Class myavatar_form
@@ -37,10 +38,62 @@ use moodleform;
  * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
-class myavatar_form extends moodleform {
+class myavatar_form extends moodleform
+{
 
-    protected function definition() {
-        // TODO: Implement definition() method.
+    protected function definition()
+    {
+        $mform = $this->_form;
+
+        $mform->addElement('checkbox', 'showownavatar', get_string('myavatarform:showownavatar', 'local_avatar'), ' ');
+
+        $mform->addElement('checkbox', 'showotheravatars', get_string('myavatarform:showotheravatars', 'local_avatar'), ' ');
+
+        $mform->addElement('text', 'shownumberofavatars', get_string('myavatarform:shownumberofavatars', 'local_avatar'));
+        $mform->setType('shownumberofavatars', PARAM_INT);
+
+        $mform->addElement('checkbox', 'avatarsmovement', get_string('myavatarform:avatarsmovement', 'local_avatar'), ' ');
+
+        $radioarray = [];
+        $avatars = [
+            '1' => '../pix/avatar1.png',
+            '2' => '../pix/avatar1.png',
+            '3' => '../pix/avatar1.png',
+        ];
+
+        foreach ($avatars as $value => $image) {
+            $img = \html_writer::empty_tag('img', ['src' => $image, 'alt' => $value, 'style' => 'width: 50px; height: 50px;']);
+            $label = \html_writer::tag('label', $img, ['for' => 'avatar_' . $value]);
+            $radioarray[] = $mform->createElement('radio', 'selectedavatar', '', $label, $value);
+        }
+
+        $mform->addGroup($radioarray, 'avatarradiogroup', get_string('myavatarform:selectavatar', 'local_avatar'), null, false);
+
+        $mform->addElement('submit', 'submitbutton', get_string('savechanges'));
+    }
+
+    public function handle_submission()
+    {
+        if ($this->is_cancelled()) {
+            // TODO: Handle the cancellation.
+            return;
+        } else if ($data = $this->get_data()) {
+            global $DB;
+            global $USER;
+
+            $data->userid = $USER->id;
+
+            // Check if a record for this user already exists.
+            if ($existing_record = $DB->get_record('local_avatar', ['userid' => $USER->id])) {
+                // Update the existing record.
+                $data->id = $existing_record->id; // Set the ID to ensure the correct record is updated.
+                $DB->update_record('local_avatar', $data);
+            } else {
+                // Insert a new record.
+                $DB->insert_record('local_avatar', $data);
+            }
+        }
+
     }
 
 }
