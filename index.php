@@ -24,20 +24,28 @@
  * @author    Vincent Cornelis
  **/
 defined('MOODLE_INTERNAL') || die();
+// Moodle-Konfigurationsdatei einbinden
+require_once(__DIR__.'/../../config.php');
 
-function local_avatar_before_footer() {
-    global $PAGE;
+// Seiten-URL definieren
+$PAGE->set_url(new moodle_url('/local/myplugin/index.php'));
+$PAGE->set_context(context_system::instance());
+$PAGE->set_title('Mein Plugin');
+$PAGE->set_heading('Willkommen bei meinem Plugin');
 
-    // Check if we're on a course page
-    if ($PAGE->pagetype === 'course-view') {
-        // Include the JavaScript file
-        $PAGE->requires->js('/local/avatar/amd/src/avatar.js');
+// Authentifizierung erzwingen (falls erforderlich)
+require_login();
 
-        // Add the HTML for the moving image
-        echo '<div id="image-container">
-                <img id="moving-image" src="' . $CFG->wwwroot . '/local/avatar/pix/pic.png" alt="Moving Image">
-              </div>';
-    }
-}
+// Header ausgeben
+echo $OUTPUT->header();
 
+// Hauptinhalt
+echo '<div class="myplugin-content">';
+echo '<h2>Willkommen zu meinem lokalen Plugin!</h2>';
+echo '<p>Dies ist eine Beispielseite für ein lokales Moodle-Plugin.</p>';
+echo '<p>Sie können hier beliebige Inhalte oder Funktionen hinzufügen.</p>';
+echo '</div>';
+
+// Footer ausgeben
+echo $OUTPUT->footer();
 

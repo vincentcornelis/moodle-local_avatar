@@ -21,3 +21,31 @@
  * @copyright 28/03/2022 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
+document.addEventListener('DOMContentLoaded', function () {
+    const imageContainer = document.getElementById('image-container');
+    const screenWidth = window.innerWidth;
+    const animationDuration = 5; // Duration in seconds
+
+    // Set the initial position of the image
+    imageContainer.style.left = `-100px`;
+
+    // Function to move the image across the screen
+    function moveImage() {
+        imageContainer.style.transition = `left ${animationDuration}s linear`;
+        imageContainer.style.left = `${screenWidth}px`;
+
+        // Reset the image position after it exits the screen
+        setTimeout(() => {
+            imageContainer.style.transition = 'none';
+            imageContainer.style.left = `-100px`;
+            // Restart the animation
+            setTimeout(moveImage, 50);
+        }, animationDuration * 1000);
+    }
+
+    // Start the animation
+    moveImage();
+});
+
+
+
