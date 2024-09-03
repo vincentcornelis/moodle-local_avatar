@@ -28,7 +28,6 @@ use local_avatar\form\myavatar_form; // Import the namespaced class.
 
 
 require_once('../../../config.php');
-require_once($CFG->dirroot . '/local/avatar/classes/form/myavatar_form.php'); // Include the form class.
 
 global $DB;
 global $USER;
