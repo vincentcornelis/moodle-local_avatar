@@ -39,7 +39,6 @@ function local_avatar_before_footer(): void {
     }
 }
 
-
 /**
  * Doesn't really extend the user navigation, but edits the custom user menu items to add the avatar link.
  *
@@ -65,8 +64,7 @@ function local_avatar_extend_navigation_user(
         return;
     }
 
-    $url = new moodle_url('/local/avatar/view/myavatar.php');
-    $myavataritem = get_string('nav:myavatar', 'local_avatar') . '|' . $url->get_path();
+    $myavataritem = "nav:myavatar,local_avatar|/local/avatar/view/myavatar.php";
 
     $custommenuitems = explode(PHP_EOL, get_config('core', 'customusermenuitems'));
 
