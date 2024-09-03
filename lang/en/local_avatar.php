@@ -34,7 +34,6 @@ $string['settings:enable_desc'] = 'Completely enable or disable the avatars plug
 $string['settings:enabled'] = 'Enabled';
 $string['settings:disabled'] = 'Disabled';
 
-
 // My avatar form.
 $string['myavatarform:showownavatar'] = 'Show own avatar';
 $string['myavatarform:showotheravatars'] = 'Show other avatars';
@@ -44,4 +43,3 @@ $string['myavatarform:selectavatar'] = 'Select avatar';
 
 // Navigation.
 $string['nav:myavatar'] = 'My avatar';
-
