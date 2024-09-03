@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,19 +14,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information
+ * JavaScript for displaying an avatar.
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   local_avatar
- * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
+ * @copyright 28/03/2022 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
-
-defined('MOODLE_INTERNAL') || die;
-
-$plugin->component = 'local_avatar';
-$plugin->version = 2024090300;
-$plugin->release = '4.1.0';
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->requires = 2022112800;
