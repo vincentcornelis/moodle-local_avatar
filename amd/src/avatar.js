@@ -28,6 +28,10 @@ import Log from 'core/log';
  * Initialise.
  */
 export const init = () => {
+    console.log("The init function was called2");
+    var gif1 = "../local/avatar/pix/r2d2.gif";
+    var gif2 = "../local/avatar/pix/goose_basic.gif";
+    var gif3 = "../local/avatar/pix/stormtrooper.gif";
 
     Log.log("The init function was called");
 
@@ -41,21 +45,31 @@ export const init = () => {
     document.getElementById("page-wrapper").appendChild(avatarMoodlenautDiv);
 
     // THE GOOSE INJECTION.
-    const avatarMoodlenautContainer = document.createElement('div');
-    avatarMoodlenautContainer.style.cssText = 'position:absolute;' +
-        'width:64px;height:64px;' +
-        'z-index:100;' +
-        'background-image:url("../local/avatar/pix/r2d2.gif");' +
-        'overflow:hidden;bottom:0px;' +
-        'background-size:cover;';
-    avatarMoodlenautContainer.setAttribute("id", "avatar-moodlenautContainer");
-    avatarMoodlenautContainer.style.left = "10px";
-    avatarMoodlenautContainer.style.transition = "left 20s linear";
-    document.getElementById("avatar-moodlenautspace").appendChild(avatarMoodlenautContainer);
+    document.getElementById("avatar-moodlenautspace").appendChild(createMoodlenautContainer(gif2,0));
+
 
     // MOVE THE GOOSE.
     // Main(3000,avatarMoodlenautContainer);
     setInterval(() => {
         avatarMoodlenautContainer.style.left = "90%";
     }, 3000);
+
+    /**
+     *
+     * @param gif
+     * @param id
+     */
+    function createMoodlenautContainer(gif,id){
+        const avatarMoodlenautContainer = document.createElement('div');
+        avatarMoodlenautContainer.style.cssText = 'position:absolute;' +
+            'width:64px;height:64px;' +
+            'z-index:100;' +
+            'background-image:url("'+gif+'");' +
+            'overflow:hidden;bottom:0px;' +
+            'background-size:cover;';
+        avatarMoodlenautContainer.setAttribute("id", "avatar-moodlenautContainer");
+        avatarMoodlenautContainer.style.left = "10px";
+        avatarMoodlenautContainer.style.transition = "left 20s linear";
+        return avatarMoodlenautContainer;
+    }
 };
