@@ -39,6 +39,23 @@ use core_user;
  **/
 class avatar_information {
 
+    public static function get_avatars() {
+
+        $avatars = [
+            1 => '/local/avatar/pix/goose_basic.gif',
+            2 => '/local/avatar/pix/r2d2.gif',
+            3 => '/local/avatar/pix/seal_basic.gif',
+            4 => '/local/avatar/pix/stormtrooper.gif',
+        ];
+
+        array_walk($avatars, static function(&$avatar) {
+            global $CFG;
+            $avatar = $CFG->wwwroot . $avatar;
+        });
+
+        return $avatars;
+    }
+
     /**
      * User's settings.
      *
