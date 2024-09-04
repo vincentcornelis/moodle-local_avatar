@@ -32,12 +32,14 @@ import Log from 'core/log';
 export const init = (information) => {
 
     Log.log(information);
-
+    /*
     var gif1 = "../local/avatar/pix/goose_basic.gif";
     var gif2 = "../local/avatar/pix/r2d2.gif";
     var gif3 = "../local/avatar/pix/seal_basic.gif";
     var gif4 = "../local/avatar/pix/stormtrooper.gif";
-    var gifs = [gif1,gif2,gif3,gif4];
+    */
+
+    var gifs = Object.values(information.avatargifs);
 
     Log.log("The init function was called");
 
