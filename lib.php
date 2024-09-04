@@ -24,9 +24,9 @@
  * @author    Vincent Cornelis
  **/
 
-use local_avatar\helper;
-
 require_once($CFG->dirroot . '/local/avatar/classes/helper.php');
+
+use local_avatar\avatar_information;
 
 /**
  * Execute before http headers.
@@ -41,13 +41,13 @@ function local_avatar_before_http_headers(): void {
         return;
     }
 
-    // Test helper function.
-    $helper = new helper();
+    $avatarinformation = new avatar_information();
+    $jsinformation = $avatarinformation->get_avatar_js_information();
 
-    $visibleusers = $helper->get_user_visible_users();
-    // echo '<pre>';
-    // print_r($visibleusers);
-    // echo '</pre>';
+    // No need to load JS when there's no information.
+    if (empty($jsinformation->avatars)) {
+        return;
+    }
 
     $PAGE->requires->js_call_amd('local_avatar/avatar', 'init');
 }

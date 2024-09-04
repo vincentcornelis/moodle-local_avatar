@@ -35,11 +35,14 @@ namespace local_avatar;
  * @copyright 04/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
-class helper
-{
+class helper {
 
-    public static function get_user_visible_users()
-    {
+    /**
+     * Get user visible users
+     *
+     * @return array
+     */
+    public static function get_user_visible_users() {
         global $USER, $COURSE, $DB;
 
         $course = get_course($COURSE->id);
@@ -50,7 +53,7 @@ class helper
         }
 
         $visibleusers = [];
-  
+
         if ($course->groupmode == NOGROUPS) {
             // Return all users in the course.
             $sql = "SELECT u.id
@@ -59,14 +62,15 @@ class helper
                 JOIN {enrol} e ON e.id = ue.enrolid
                 WHERE e.courseid = :courseid AND ue.status = :active";
 
-            // Parameters for the query
+            // Parameters for the query.
             $params = [
                 'courseid' => $COURSE->id,
-                'active' => ENROL_USER_ACTIVE
+                'active' => ENROL_USER_ACTIVE,
             ];
 
             // Execute the query and return the list of user IDs.
             $visibleusers = $DB->get_fieldset_sql($sql, $params);
+
             return $visibleusers;
         }
         // Check if the user is enrolled in the course and has an active enrollment.
@@ -75,7 +79,6 @@ class helper
 
         // Check if the user is in any groups.
         if (!empty($usergroups)) {
-
             return array_keys(groups_get_groups_members($usergroups));
         }
 
