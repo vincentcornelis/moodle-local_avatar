@@ -76,6 +76,7 @@ class avatar_information {
     private function load_user_settings(): void {
         global $DB, $USER;
 
+        // All users get a default avatar, so should always exist.
         $this->settings = $DB->get_record(
             'local_avatar',
             ['userid' => $USER->id],
@@ -135,7 +136,7 @@ class avatar_information {
         }
 
         if ($this->own_avatar_enabled()) {
-            if ($maxvisible > 0) {
+            if ($maxvisible > 0 && count($visibleusers) > 1) {
                 array_pop($visibleusers);
             }
             $visibleusers[] = $USER->id;

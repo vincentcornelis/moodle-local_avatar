@@ -24,6 +24,8 @@
  * @author    Vincent Cornelis
  **/
 
+use local_avatar\avatar_information;
+
 /**
  * Post installation procedure
  *
@@ -86,5 +88,7 @@ function xmldb_local_avatar_install(): void {
     ];
 
     $DB->insert_record('customfield_field', $customfield);
+
+    avatar_information::create_random_avatars();
 
 }
