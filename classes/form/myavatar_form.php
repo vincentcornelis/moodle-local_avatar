@@ -102,9 +102,11 @@ class myavatar_form extends moodleform {
     }
 
     public function handle_submission() {
+        global $CFG;
+
         if ($this->is_cancelled()) {
-            // TODO: Handle the cancellation.
-            return;
+            $redirecturl = new \moodle_url($CFG->wwwroot.'/local/avatar/view/myavatar.php');
+            redirect($redirecturl);
         } else if ($data = $this->get_data()) {
             global $DB;
             global $USER;
@@ -120,6 +122,8 @@ class myavatar_form extends moodleform {
                 // Insert a new record.
                 $DB->insert_record('local_avatar', $data);
             }
+            $redirecturl = new \moodle_url($CFG->wwwroot.'/my/courses.php');
+            redirect($redirecturl);
         }
 
     }
