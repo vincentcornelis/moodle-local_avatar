@@ -28,10 +28,11 @@ import Log from 'core/log';
  * Initialise.
  */
 export const init = () => {
-    console.log("The init function was called2");
     var gif1 = "../local/avatar/pix/r2d2.gif";
-    var gif2 = "../local/avatar/pix/goose_basic.gif";
-    var gif3 = "../local/avatar/pix/stormtrooper.gif";
+    var gif2 = "../local/avatar/pix/seal_basic.gif";
+    var gif3 = "../local/avatar/pix/goose_basic.gif";
+    var gif4 = "../local/avatar/pix/stormtrooper.gif";
+    var gifs = [gif1,gif2,gif3,gif4];
 
     Log.log("The init function was called");
 
@@ -40,35 +41,44 @@ export const init = () => {
         'width:100%;' +
         'height:200px;' +
         'z-index:-10;' +
-        'overflow:hidden;bottom:0';
+        'overflow:hidden;' +
+        'bottom:0';
     avatarMoodlenautDiv.setAttribute("id", "avatar-moodlenautspace");
     document.getElementById("page-wrapper").appendChild(avatarMoodlenautDiv);
 
-    // THE GOOSE INJECTION.
-    document.getElementById("avatar-moodlenautspace").appendChild(createMoodlenautContainer(gif2,0));
-
+    // THE GOOSE INJECTION
+    const avatarMoodlenautContainer = [];
+    for (let i = 0; i < 5; i++) {
+        var ava = createMoodlenautContainer(gifs[Math.floor(Math.random() * 4)],i);
+        avatarMoodlenautContainer.push(ava);
+        document.getElementById("avatar-moodlenautspace").appendChild(ava);
+    }
 
     // MOVE THE GOOSE.
-    // Main(3000,avatarMoodlenautContainer);
-    setInterval(() => {
-        avatarMoodlenautContainer.style.left = "90%";
-    }, 3000);
+    for (let id = 0; id < 5; id++) {
+        const random = Math.floor(Math.random() * 5000);
+        setInterval(() => {
+            document.getElementById("avatar-moodlenautContainer"+id).style.left = "110%";
+        }, random);
+    }
 
     /**
-     *
-     * @param gif
-     * @param id
+     * Create a avatar with an id and a gif
+     * @param {String} gif gif for the avatar
+     * @param {int} id id for the avatar
      */
     function createMoodlenautContainer(gif,id){
         const avatarMoodlenautContainer = document.createElement('div');
         avatarMoodlenautContainer.style.cssText = 'position:absolute;' +
-            'width:64px;height:64px;' +
+            'width:64px;' +
+            'height:64px;' +
             'z-index:100;' +
             'background-image:url("'+gif+'");' +
-            'overflow:hidden;bottom:0px;' +
+            'overflow:hidden;' +
+            'bottom:0px;' +
             'background-size:cover;';
-        avatarMoodlenautContainer.setAttribute("id", "avatar-moodlenautContainer");
-        avatarMoodlenautContainer.style.left = "10px";
+        avatarMoodlenautContainer.setAttribute("id", "avatar-moodlenautContainer"+id);
+        avatarMoodlenautContainer.style.left = "-70px";
         avatarMoodlenautContainer.style.transition = "left 20s linear";
         return avatarMoodlenautContainer;
     }
