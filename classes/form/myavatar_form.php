@@ -27,6 +27,7 @@
 namespace local_avatar\form;
 
 use moodleform;
+
 require_once($CFG->libdir . '/formslib.php');
 
 /**
@@ -38,21 +39,37 @@ require_once($CFG->libdir . '/formslib.php');
  * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
-class myavatar_form extends moodleform
-{
+class myavatar_form extends moodleform {
 
-    protected function definition()
-    {
+    protected function definition() {
         $mform = $this->_form;
 
-        $mform->addElement('checkbox', 'showownavatar', get_string('myavatarform:showownavatar', 'local_avatar'), ' ');
+        $mform->addElement(
+            'advcheckbox',
+            'showownavatar',
+            get_string('myavatarform:showownavatar', 'local_avatar'),
+            ' ',
+            [0, 1]
+        );
 
-        $mform->addElement('checkbox', 'showotheravatars', get_string('myavatarform:showotheravatars', 'local_avatar'), ' ');
+        $mform->addElement(
+            'advcheckbox',
+            'showotheravatars',
+            get_string('myavatarform:showotheravatars', 'local_avatar'),
+            ' ',
+            [0, 1]
+        );
 
         $mform->addElement('text', 'shownumberofavatars', get_string('myavatarform:shownumberofavatars', 'local_avatar'));
         $mform->setType('shownumberofavatars', PARAM_INT);
 
-        $mform->addElement('checkbox', 'avatarsmovement', get_string('myavatarform:avatarsmovement', 'local_avatar'), ' ');
+        $mform->addElement(
+            'advcheckbox',
+            'avatarsmovement',
+            get_string('myavatarform:avatarsmovement', 'local_avatar'),
+            ' ',
+            [0, 1]
+        );
 
         $radioarray = [];
         $avatars = [
@@ -72,8 +89,7 @@ class myavatar_form extends moodleform
         $mform->addElement('submit', 'submitbutton', get_string('savechanges'));
     }
 
-    public function handle_submission()
-    {
+    public function handle_submission() {
         if ($this->is_cancelled()) {
             // TODO: Handle the cancellation.
             return;
