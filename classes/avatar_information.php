@@ -209,7 +209,7 @@ class avatar_information {
         }
 
         if ($this->own_avatar_enabled()) {
-            if ($maxvisible > 0 && count($visibleusers) > $maxvisible) {
+            if ($maxvisible > 0 && count($visibleusers) >= $maxvisible) {
                 array_pop($visibleusers);
             }
             $visibleusers[] = $USER->id;
