@@ -93,7 +93,7 @@ class avatar_information {
     /**
      * Get the user visible avatars.
      *
-     * @return void
+     * @return array
      */
     private function get_user_visible_avatars() {
         global $DB, $USER;
@@ -118,7 +118,7 @@ class avatar_information {
             'userid ' . $insql,
             $inparams,
             '',
-            'userid, showownavatar'
+            'userid, showownavatartoothers'
         )));
 
         if (empty($filteredvisibleusers)) {
