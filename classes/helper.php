@@ -76,13 +76,19 @@ class helper {
                 return $visibleuser !== $USER->id;
             });
         }
+
         // Check if the user is enrolled in the course and has an active enrollment.
         $usergroups = groups_get_user_groups($COURSE->id, $USER->id);
         $usergroups = reset($usergroups);
 
         // Check if the user is in any groups.
         if (!empty($usergroups)) {
-            return array_keys(groups_get_groups_members($usergroups));
+            $visibleusers = array_keys(groups_get_groups_members($usergroups));
+
+            // Unset own user ID, might get added later.
+            return array_filter($visibleusers, static function($visibleuser) use ($USER) {
+                return $visibleuser !== $USER->id;
+            });
         }
 
         return $visibleusers;
