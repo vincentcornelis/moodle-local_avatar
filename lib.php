@@ -23,11 +23,20 @@
  * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
-defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Execute before http headers.
+ *
+ * @return void
+ */
+function local_avatar_before_http_headers(): void {
+    global $PAGE;
 
-function local_avatar_before_footer() {
-    global $PAGE,$CFG;
+    // Check if we're on a course, or module page.
+    if ($PAGE->context->contextlevel !== CONTEXT_COURSE && $PAGE->context->contextlevel !== CONTEXT_MODULE) {
+        return;
+    }
+
     $PAGE->requires->js_call_amd('local_avatar/avatar', 'init');
 }
 

@@ -21,11 +21,17 @@
  * @copyright 28/03/2022 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  */
+
+import Log from 'core/log';
+
+/**
+ * Initialise.
+ */
 export const init = () => {
-    /* eslint-disable no-console */
-    console.log("The init function was called2");
-    /* eslint-enable no-console */
-    var avatarMoodlenautDiv = document.createElement('div');
+
+    Log.log("The init function was called");
+
+    const avatarMoodlenautDiv = document.createElement('div');
     avatarMoodlenautDiv.style.cssText = 'position:absolute;' +
         'width:100%;' +
         'height:200px;' +
@@ -33,8 +39,9 @@ export const init = () => {
         'overflow:hidden;bottom:0';
     avatarMoodlenautDiv.setAttribute("id", "avatar-moodlenautspace");
     document.getElementById("page-wrapper").appendChild(avatarMoodlenautDiv);
-    //THE GOOSE INJECTION
-    var avatarMoodlenautContainer = document.createElement('div');
+
+    // THE GOOSE INJECTION.
+    const avatarMoodlenautContainer = document.createElement('div');
     avatarMoodlenautContainer.style.cssText = 'position:absolute;' +
         'width:64px;height:64px;' +
         'z-index:100;' +
@@ -45,10 +52,10 @@ export const init = () => {
     avatarMoodlenautContainer.style.left = "10px";
     avatarMoodlenautContainer.style.transition = "left 20s linear";
     document.getElementById("avatar-moodlenautspace").appendChild(avatarMoodlenautContainer);
-    //MOVE THE GOOSE
-    //Main(3000,avatarMoodlenautContainer);
-    setInterval(()=> {
+
+    // MOVE THE GOOSE.
+    // Main(3000,avatarMoodlenautContainer);
+    setInterval(() => {
         avatarMoodlenautContainer.style.left = "90%";
     }, 3000);
 };
-
