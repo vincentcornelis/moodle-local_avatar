@@ -15,19 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information
+ * Event observer
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  * @package   local_avatar
- * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
+ * @copyright 04/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->component = 'local_avatar';
-$plugin->version = 2024090400;
-$plugin->release = '4.1.0';
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->requires = 2022112800;
+$observers = [
+    [
+        'eventname' => \core\event\user_created::class,
+        'callback' => 'local_avatar\avatar_information::user_created',
+    ],
+];

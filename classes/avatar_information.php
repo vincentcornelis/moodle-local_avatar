@@ -46,7 +46,7 @@ class avatar_information {
      *
      * @return string[]
      */
-    public static function get_avatars() {
+    public static function get_avatars(): array {
 
         $avatars = [
             1 => '/local/avatar/pix/goose_basic.gif',
@@ -78,6 +78,20 @@ class avatar_information {
         foreach ($users as $user) {
             self::create_random_avatar($user->id);
         }
+
+    }
+
+    /**
+     * Create random avatar for newly created user.
+     *
+     * @param \core\event\user_created $event
+     *
+     * @return void
+     */
+    public static function user_created(\core\event\user_created $event): void {
+
+        $user = $event->get_record_snapshot('user', $event->objectid);
+        self::create_random_avatar($user->id);
 
     }
 
