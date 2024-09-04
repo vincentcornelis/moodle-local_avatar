@@ -63,10 +63,16 @@ export const init = (information) => {
     // MOVE THE GOOSE.
     for (const [userid, avatar] of Object.entries(avatars)) {
         Log.log(avatar.fullname);
+        /*
         const random = Math.floor(Math.random() * 5000);
         setInterval(() => {
             document.getElementById("avatar-moodlenautContainer"+userid).style.left = "110%";
         }, random);
+         */
+        let traveltimeLoopDuration = 1000;
+        setInterval(() =>  {
+            traveltimeLoopDuration = avatarMoveAvatarRandomized("avatar-moodlenautContainer"+userid)*1000;
+        }, traveltimeLoopDuration + 1000);
     }
 
     /**
@@ -89,4 +95,54 @@ export const init = (information) => {
         avatarMoodlenautContainer.style.transition = "left 20s linear";
         return avatarMoodlenautContainer;
     }
+    /**
+     * Moves an Avatar.
+     * @constructor
+     * @param {string} avatarID - ID of the actual avatar container which should be moved in a random way.
+     * @return (integer) traveltime, the planed duration of the ainmation
+     */
+    function avatarMoveAvatarRandomized(avatarID){
+        var thisAvatar = document.getElementById(avatarID);
+        var thisAvatarRect = thisAvatar.getBoundingClientRect();
+        var thisAvatarLeftPosition = thisAvatarRect.left;
+        var randomizer = Math.random() * 100;
+        var newPositionWalkoutsidemodifier = Math.random() * 160 - 80;
+        var newPosition = randomizer + newPositionWalkoutsidemodifier;
+        var traveltime = randomizer * 0.25 + "s";
+        var thisAvatarLeftPositionPercentage = thisAvatarLeftPosition / window.innerWidth * 100;
+
+        /* eslint-disable no-console */
+        console.log("Randomizer Values:" +
+            randomizer +
+            " New Position: " +
+            newPosition +
+            " Traveltime: " +
+            traveltime +
+            " Avatarid: " +
+            avatarID +
+            " left: " +
+            thisAvatarLeftPosition +
+            " Leftpositionpercentage: " +
+            thisAvatarLeftPositionPercentage +
+            " outsidemodifier: " +
+            newPositionWalkoutsidemodifier);
+        /* eslint-enable no-console */
+
+        if(newPosition > thisAvatarLeftPositionPercentage){
+            thisAvatar.style.transform = "scaleX(1)";
+        }
+        else if(newPosition < thisAvatarLeftPositionPercentage){
+            thisAvatar.style.transform = "scaleX(-1)";
+        }
+        thisAvatar.style.transition = "left " +
+            traveltime +
+            " linear, right " +
+            traveltime +
+            " linear";
+        thisAvatar.style.left = newPosition + "%";
+
+        return traveltime;
+    }
+
+
 };
