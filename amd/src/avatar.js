@@ -33,9 +33,9 @@ export const init = (information) => {
 
     Log.log(information);
 
-    var gif1 = "../local/avatar/pix/r2d2.gif";
-    var gif2 = "../local/avatar/pix/seal_basic.gif";
-    var gif3 = "../local/avatar/pix/goose_basic.gif";
+    var gif1 = "../local/avatar/pix/goose_basic.gif";
+    var gif2 = "../local/avatar/pix/r2d2.gif";
+    var gif3 = "../local/avatar/pix/seal_basic.gif";
     var gif4 = "../local/avatar/pix/stormtrooper.gif";
     var gifs = [gif1,gif2,gif3,gif4];
 
@@ -52,18 +52,20 @@ export const init = (information) => {
     document.getElementById("page-wrapper").appendChild(avatarMoodlenautDiv);
 
     // THE GOOSE INJECTION
+    var avatars = information.avatars;
     const avatarMoodlenautContainer = [];
-    for (let i = 0; i < 5; i++) {
-        var ava = createMoodlenautContainer(gifs[Math.floor(Math.random() * 4)],i);
+    for (const [userid, avatar] of Object.entries(avatars)) {
+        var ava = createMoodlenautContainer(gifs[avatar.avatar-1],userid);
         avatarMoodlenautContainer.push(ava);
         document.getElementById("avatar-moodlenautspace").appendChild(ava);
     }
 
     // MOVE THE GOOSE.
-    for (let id = 0; id < 5; id++) {
+    for (const [userid, avatar] of Object.entries(avatars)) {
+        Log.log(avatar.fullname);
         const random = Math.floor(Math.random() * 5000);
         setInterval(() => {
-            document.getElementById("avatar-moodlenautContainer"+id).style.left = "110%";
+            document.getElementById("avatar-moodlenautContainer"+userid).style.left = "110%";
         }, random);
     }
 
