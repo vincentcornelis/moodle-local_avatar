@@ -36,11 +36,17 @@ $string['settings:disabled'] = 'Disabled';
 
 // My avatar form.
 $string['myavatarform:showownavatar'] = 'Show own avatar';
+$string['myavatarform:showownavatar_help'] = 'Show your own avatar';
 $string['myavatarform:showownavatartoothers'] = 'Show own avatar to others';
+$string['myavatarform:showownavatartoothers_help'] = 'Show your own avatar to others';
 $string['myavatarform:showotheravatars'] = 'Show other avatars';
+$string['myavatarform:showotheravatars_help'] = 'Show other avatars';
 $string['myavatarform:shownumberofavatars'] = 'Show number of avatars';
+$string['myavatarform:shownumberofavatars_help'] = 'The number of avatars to show. Set to 0 to show all avatars';
 $string['myavatarform:avatarsmovement'] = 'Avatars movement';
+$string['myavatarform:avatarsmovement_help'] = 'Enable or disable the movement of avatars';
 $string['myavatarform:selectavatar'] = 'Select avatar';
+$string['myavatarform:selectavatar_help'] = 'Select your avatar';
 
 // Navigation.
 $string['nav:myavatar'] = 'My avatar';

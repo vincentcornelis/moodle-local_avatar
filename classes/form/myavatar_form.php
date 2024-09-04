@@ -51,6 +51,7 @@ class myavatar_form extends moodleform {
             ' ',
             [0, 1]
         );
+        $mform->addHelpButton('showownavatar', 'myavatarform:showownavatar', 'local_avatar');
 
         $mform->addElement(
             'advcheckbox',
@@ -59,6 +60,7 @@ class myavatar_form extends moodleform {
             ' ',
             [0, 1]
         );
+        $mform->addHelpButton('showownavatartoothers', 'myavatarform:showownavatartoothers', 'local_avatar');
 
         $mform->addElement(
             'advcheckbox',
@@ -67,8 +69,10 @@ class myavatar_form extends moodleform {
             ' ',
             [0, 1]
         );
+        $mform->addHelpButton('showotheravatars', 'myavatarform:showotheravatars', 'local_avatar');
 
         $mform->addElement('text', 'shownumberofavatars', get_string('myavatarform:shownumberofavatars', 'local_avatar'));
+        $mform->addHelpButton('shownumberofavatars', 'myavatarform:shownumberofavatars', 'local_avatar');
         $mform->setType('shownumberofavatars', PARAM_INT);
 
         $mform->addElement(
@@ -78,6 +82,7 @@ class myavatar_form extends moodleform {
             ' ',
             [0, 1]
         );
+        $mform->addHelpButton('avatarsmovement', 'myavatarform:avatarsmovement', 'local_avatar');
 
         $radioarray = [];
         $avatars = [
@@ -94,6 +99,7 @@ class myavatar_form extends moodleform {
         }
 
         $mform->addGroup($radioarray, 'avatarradiogroup', get_string('myavatarform:selectavatar', 'local_avatar'), null, false);
+        $mform->addHelpButton('avatarradiogroup', 'myavatarform:selectavatar', 'local_avatar');
 
         $mform->addElement('submit', 'submitbutton', get_string('savechanges'));
     }
