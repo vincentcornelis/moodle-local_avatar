@@ -90,18 +90,17 @@ class helper {
 
     /**
      * Check if avatars are enabled globally and in course.
-     * 
+     *
      * @return bool
      */
-    public static function avatars_enabled() {
+    public static function avatars_enabled(): bool {
         global $COURSE, $DB;
 
         if (get_config('local_avatar', 'enabled')) {
+
             $customfieldid = $DB->get_field('customfield_field', 'id', ['shortname' => 'avatar_enabled']);
-            $customfieldvalue = $DB->get_field('customfield_data', 'data', ['fieldid' => $customfieldid, 'instanceid' => $COURSE->id]);
-            if ($customfieldvalue) {
-                return true;
-            }
+
+            return $DB->get_field('customfield_data', 'intvalue', ['fieldid' => $customfieldid, 'instanceid' => $COURSE->id]);
         }
 
         return false;
