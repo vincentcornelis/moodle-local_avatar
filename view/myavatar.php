@@ -24,3 +24,32 @@
  * @author    Vincent Cornelis
  **/
  
+use local_avatar\form\myavatar_form; // Import the namespaced class.
+
+
+require_once('../../../config.php');
+
+global $DB;
+global $USER;
+
+$url = new moodle_url( '/local/avatar/view/myavatar.php' );
+$PAGE->set_url($url);
+$PAGE->set_context(context_system::instance()); // Set the context.
+$PAGE->set_title(get_string('myavatarsettings', 'local_avatar')); // Set the page title.
+$PAGE->set_heading(get_string('myavatarsettings', 'local_avatar')); // Set the page heading.
+
+$mform = new myavatar_form(); // Instantiate the form.
+
+// Pre-fill the form with the user's data.
+$data = $DB->get_record('local_avatar', ['userid' => $USER->id]);
+$mform->set_data($data);
+
+$mform->handle_submission(); // Handle the form submission.
+
+echo $OUTPUT->header(); // Display the header.
+
+echo $mform->render();
+
+echo $OUTPUT->footer(); // Display the footer.
+
+

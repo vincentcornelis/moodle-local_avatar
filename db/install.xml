@@ -9,20 +9,10 @@
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="ID of the user."/>
         <FIELD NAME="selectedavatar" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="showotheravatars" TYPE="binary" NOTNULL="false" SEQUENCE="false" COMMENT="Boolean to show the other avatars."/>
+        <FIELD NAME="showotheravatars" TYPE="int" LENGTH="2" NOTNULL="false" SEQUENCE="false" COMMENT="Boolean to show the other avatars."/>
         <FIELD NAME="shownumberofavatars" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Number for avatars to be shown."/>
-        <FIELD NAME="showownavatar" TYPE="binary" NOTNULL="false" SEQUENCE="false" COMMENT="Boolean to show the own avatar."/>
-        <FIELD NAME="avatarsmovement" TYPE="binary" NOTNULL="false" SEQUENCE="false" COMMENT="Boolean to activate or deactivate the movement of the avatars."/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-      </KEYS>
-    </TABLE>
-    <TABLE NAME="local_avatar_courses" COMMENT="Settings for courses regarding the local avatar plugin.">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="ID of the course."/>
-        <FIELD NAME="useavatars" TYPE="binary" NOTNULL="false" SEQUENCE="false" COMMENT="Boolean to select if avatars should be used in the course."/>
+        <FIELD NAME="showownavatar" TYPE="int" LENGTH="2" NOTNULL="false" SEQUENCE="false" COMMENT="Boolean to show the own avatar."/>
+        <FIELD NAME="avatarsmovement" TYPE="int" LENGTH="2" NOTNULL="false" SEQUENCE="false" COMMENT="Boolean to activate or deactivate the movement of the avatars."/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

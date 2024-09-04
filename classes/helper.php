@@ -15,31 +15,36 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * EN language file
+ *
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  * @package   local_avatar
- * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
+ * @copyright 04/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
 
-// Default.
-$string['pluginname'] = 'Pixelart Avatar';
-$string['myavatarsettings'] = 'My avatar settings';
+namespace local_avatar;
 
-// Settings.
-$string['settings:enable'] = 'Enable avatars';
-$string['settings:enable_desc'] = 'Completely enable or disable the avatars plugin';
-$string['settings:enabled'] = 'Enabled';
-$string['settings:disabled'] = 'Disabled';
+/**
+ * Class helper
+ *
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ * @package   local_avatar
+ * @copyright 04/09/2024 LdesignMedia.nl - Luuk Verhoeven
+ * @author    Vincent Cornelis
+ **/
+class helper {
 
-// My avatar form.
-$string['myavatarform:showownavatar'] = 'Show own avatar';
-$string['myavatarform:showotheravatars'] = 'Show other avatars';
-$string['myavatarform:shownumberofavatars'] = 'Show number of avatars';
-$string['myavatarform:avatarsmovement'] = 'Avatars movement';
-$string['myavatarform:selectavatar'] = 'Select avatar';
+    public static function get_user_visible_users() {
+        global $USER;
 
-// Navigation.
-$string['nav:myavatar'] = 'My avatar';
+        // TODO: Check wich users the user can see.
+        // Check if there are groups set in the course.
+        // Check if there are groups, which group(s) the user is in.
+        // Return the user-ids of the users that are in the same group(s) as the user.
+        // Make sure only active enrollments are returned.
+    }
+
+}
