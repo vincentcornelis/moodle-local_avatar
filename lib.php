@@ -24,6 +24,10 @@
  * @author    Vincent Cornelis
  **/
 
+use local_avatar\helper;
+
+require_once($CFG->dirroot . '/local/avatar/classes/helper.php');
+
 /**
  * Execute before http headers.
  *
@@ -36,6 +40,14 @@ function local_avatar_before_http_headers(): void {
     if ($PAGE->context->contextlevel !== CONTEXT_COURSE && $PAGE->context->contextlevel !== CONTEXT_MODULE) {
         return;
     }
+
+    // Test helper function.
+    $helper = new helper();
+
+    $visibleusers = $helper->get_user_visible_users();
+    // echo '<pre>';
+    // print_r($visibleusers);
+    // echo '</pre>';
 
     $PAGE->requires->js_call_amd('local_avatar/avatar', 'init');
 }
