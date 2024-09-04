@@ -50,7 +50,7 @@ class avatar_information {
 
         array_walk($avatars, static function(&$avatar) {
             global $CFG;
-            $avatar = $CFG->dirroot . $avatar;
+            $avatar = $CFG->wwwroot . $avatar;
         });
 
         return $avatars;
