@@ -217,22 +217,12 @@ class avatar_information {
         global $DB, $USER;
 
         $visibleusers = helper::get_user_visible_users();
-        $maxvisible = $this->get_max_visible();
-
-        if ($maxvisible > 0) {
-            $visibleusers = array_slice($visibleusers, 0, $maxvisible);
-        }
-
-        if ($this->own_avatar_enabled()) {
-            if ($maxvisible > 0 && count($visibleusers) >= $maxvisible) {
-                array_pop($visibleusers);
-            }
-            $visibleusers[] = $USER->id;
-        }
 
         if (empty($visibleusers)) {
             return [];
         }
+
+        $maxvisible = $this->get_max_visible();
 
         [$insql, $inparams] = $DB->get_in_or_equal($visibleusers, SQL_PARAMS_NAMED);
 
@@ -250,6 +240,17 @@ class avatar_information {
         }
 
         $onlineusers = $this->check_online_status($filteredvisibleusers);
+
+        if ($maxvisible > 0) {
+            $onlineusers = array_slice($onlineusers, 0, $maxvisible);
+        }
+
+        if ($this->own_avatar_enabled()) {
+            if ($maxvisible > 0 && count($onlineusers) >= $maxvisible) {
+                array_pop($onlineusers);
+            }
+            $onlineusers[] = $USER->id;
+        }
 
         if (empty($onlineusers)) {
             return [];
