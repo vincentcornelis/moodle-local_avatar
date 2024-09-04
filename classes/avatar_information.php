@@ -40,12 +40,21 @@ use core_user;
 class avatar_information {
 
     /**
+     * User's settings.
+     *
+     * @var object
+     */
+    private object $settings;
+
+    /**
      * Get necessary information for JavaScript to be able to display avatars.
      *
      * @return object
      */
     public function get_avatar_js_information(): object {
         global $USER;
+
+        $this->load_user_settings();
 
         if (!$this->avatars_enabled()) {
             return (object) [];
@@ -60,14 +69,27 @@ class avatar_information {
     }
 
     /**
+     * Load user settings.
+     *
+     * @return void
+     */
+    private function load_user_settings(): void {
+        global $DB, $USER;
+
+        $this->settings = $DB->get_record(
+            'local_avatar',
+            ['userid' => $USER->id],
+            'id, showownavatar, showownavatartoothers, showotheravatars, avatarsmovement, shownumberofavatars',
+        );
+    }
+
+    /**
      * Check if the user has enabled avatars.
      *
      * @return false|mixed
      */
     private function avatars_enabled() {
-        global $DB, $USER;
-
-        return $DB->get_field('local_avatar', 'showotheravatars', ['userid' => $USER->id]);
+        return $this->settings->showotheravatars;
     }
 
     /**
@@ -76,9 +98,7 @@ class avatar_information {
      * @return false|mixed
      */
     private function own_avatar_enabled() {
-        global $DB, $USER;
-
-        return $DB->get_field('local_avatar', 'showownavatar', ['userid' => $USER->id]);
+        return $this->settings->showotheravatars;
     }
 
     /**
@@ -87,9 +107,7 @@ class avatar_information {
      * @return false|mixed
      */
     private function movement_enabled() {
-        global $DB, $USER;
-
-        return $DB->get_field('local_avatar', 'avatarsmovement', ['userid' => $USER->id]);
+        return $this->settings->avatarsmovement;
     }
 
     /**
@@ -98,9 +116,7 @@ class avatar_information {
      * @return false|mixed
      */
     private function get_max_visible() {
-        global $DB, $USER;
-
-        return $DB->get_field('local_avatar', 'shownumberofavatars', ['userid' => $USER->id]);
+        return $this->settings->shownumberofavatars;
     }
 
     /**
@@ -108,7 +124,7 @@ class avatar_information {
      *
      * @return array
      */
-    private function get_user_visible_avatars() {
+    private function get_user_visible_avatars(): array {
         global $DB, $USER;
 
         $visibleusers = helper::get_user_visible_users();
