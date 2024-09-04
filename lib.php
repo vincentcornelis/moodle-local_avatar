@@ -49,7 +49,7 @@ function local_avatar_before_http_headers(): void {
         return;
     }
 
-    $PAGE->requires->js_call_amd('local_avatar/avatar', 'init');
+    $PAGE->requires->js_call_amd('local_avatar/avatar', 'init', [$jsinformation]);
 }
 
 /**

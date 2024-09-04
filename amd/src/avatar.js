@@ -26,8 +26,13 @@ import Log from 'core/log';
 
 /**
  * Initialise.
+ *
+ * @param {Object} information Avatar information.
  */
-export const init = () => {
+export const init = (information) => {
+
+    Log.log(information);
+
     var gif1 = "../local/avatar/pix/r2d2.gif";
     var gif2 = "../local/avatar/pix/seal_basic.gif";
     var gif3 = "../local/avatar/pix/goose_basic.gif";
