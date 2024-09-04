@@ -85,4 +85,10 @@ class helper {
         return $visibleusers;
     }
 
+    public static function avatars_enabled() {
+
+        // TODO: Check if local_avatar is enbabled on global config (get_config('local_avatar', 'enabled')).
+        // TODO: Check if local_avatar is enabled on course setting (course customfield).
+    }
+
 }

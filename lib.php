@@ -27,6 +27,7 @@
 require_once($CFG->dirroot . '/local/avatar/classes/helper.php');
 
 use local_avatar\avatar_information;
+use local_avatar\helper;
 
 /**
  * Execute before http headers.
@@ -38,6 +39,10 @@ function local_avatar_before_http_headers(): void {
 
     // Check if we're on a course, or module page.
     if ($PAGE->context->contextlevel !== CONTEXT_COURSE && $PAGE->context->contextlevel !== CONTEXT_MODULE) {
+        return;
+    }
+
+    if (!helper::avatars_enabled()) {
         return;
     }
 
