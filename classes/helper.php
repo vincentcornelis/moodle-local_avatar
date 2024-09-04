@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
+ * Helper functions
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -71,7 +71,10 @@ class helper {
             // Execute the query and return the list of user IDs.
             $visibleusers = $DB->get_fieldset_sql($sql, $params);
 
-            return $visibleusers;
+            // Unset own user ID, might get added later.
+            return array_filter($visibleusers, static function($visibleuser) use ($USER) {
+                return $visibleuser !== $USER->id;
+            });
         }
         // Check if the user is enrolled in the course and has an active enrollment.
         $usergroups = groups_get_user_groups($COURSE->id, $USER->id);

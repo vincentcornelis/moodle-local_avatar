@@ -93,6 +93,17 @@ class avatar_information {
     }
 
     /**
+     * Get the maximum number of visible avatars.
+     *
+     * @return false|mixed
+     */
+    private function get_max_visible() {
+        global $DB, $USER;
+
+        return $DB->get_field('local_avatar', 'shownumberofavatars', ['userid' => $USER->id]);
+    }
+
+    /**
      * Get the user visible avatars.
      *
      * @return array
@@ -101,11 +112,17 @@ class avatar_information {
         global $DB, $USER;
 
         $visibleusers = helper::get_user_visible_users();
+        $maxvisible = $this->get_max_visible();
 
-        if (!$this->own_avatar_enabled()) {
-            $visibleusers = array_filter($visibleusers, static function($visibleuser) use ($USER) {
-                return $visibleuser !== $USER->id;
-            });
+        if ($maxvisible > 0) {
+            $visibleusers = array_slice($visibleusers, 0, $maxvisible);
+        }
+
+        if ($this->own_avatar_enabled()) {
+            if ($maxvisible > 0) {
+                array_pop($visibleusers);
+            }
+            $visibleusers[] = $USER->id;
         }
 
         if (empty($visibleusers)) {
@@ -165,9 +182,27 @@ class avatar_information {
      *
      * @return array
      */
-    private function check_online_status(array $users) {
+    private function check_online_status(array $users): array {
+        global $DB;
 
-        return $users;
+        [$insql, $inparams] = $DB->get_in_or_equal($users, SQL_PARAMS_NAMED);
+
+        $select = "lastaccess > :timefrom
+                   AND lastaccess <= :now
+                   AND id " . $insql;
+
+        $timetoshowusers = 300; // Seconds default.
+        $timefrom = 100 * floor((time() - $timetoshowusers) / 100); // Round to nearest 100 seconds for better query cache.
+
+        $params = [
+            'timefrom' => $timefrom,
+            'now' => time(),
+        ];
+
+        $params = array_merge($params, $inparams);
+
+        return $DB->get_fieldset_select('user', 'id', $select, $params);
+
     }
 
 }
