@@ -53,6 +53,7 @@ class avatar_information {
             2 => '/local/avatar/pix/r2d2.gif',
             3 => '/local/avatar/pix/seal_basic.gif',
             4 => '/local/avatar/pix/stormtrooper.gif',
+            5 => '/local/avatar/pix/sheep_basic.gif',
         ];
 
         array_walk($avatars, static function(&$avatar) {
