@@ -85,12 +85,23 @@ class helper {
         return $visibleusers;
     }
 
+    /**
+     * Check if avatars are enabled globally and in course.
+     * 
+     * @return bool
+     */
     public static function avatars_enabled() {
+        global $COURSE, $DB;
 
-        return true;
+        if (get_config('local_avatar', 'enabled')) {
+            $customfieldid = $DB->get_field('customfield_field', 'id', ['shortname' => 'avatar_enabled']);
+            $customfieldvalue = $DB->get_field('customfield_data', 'data', ['fieldid' => $customfieldid, 'instanceid' => $COURSE->id]);
+            if ($customfieldvalue) {
+                return true;
+            }
+        }
 
-        // TODO: Check if local_avatar is enbabled on global config (get_config('local_avatar', 'enabled')).
-        // TODO: Check if local_avatar is enabled on course setting (course customfield).
+        return false;
     }
 
 }
