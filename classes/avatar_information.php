@@ -26,6 +26,8 @@
 
 namespace local_avatar;
 
+use core_user;
+
 /**
  * Class avatar
  *
@@ -133,7 +135,7 @@ class avatar_information {
 
         [$insql, $inparams] = $DB->get_in_or_equal($onlineusers, SQL_PARAMS_NAMED);
 
-        return $DB->get_records_select_menu(
+        $selectedavatars = $DB->get_records_select_menu(
             'local_avatar',
             'userid ' . $insql,
             $inparams,
@@ -141,6 +143,19 @@ class avatar_information {
             'userid, selectedavatar'
         );
 
+        $avatars = [];
+
+        foreach ($onlineusers as $onlineuser) {
+
+            $user = core_user::get_user($onlineuser);
+
+            $avatars[$onlineuser] = [
+                'fullname' => fullname($user),
+                'avatar' => $selectedavatars[$onlineuser],
+            ];
+        }
+
+        return $avatars;
     }
 
     /**
