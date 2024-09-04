@@ -36,6 +36,7 @@ $string['settings:disabled'] = 'Disabled';
 
 // My avatar form.
 $string['myavatarform:showownavatar'] = 'Show own avatar';
+$string['myavatarform:showownavatartoothers'] = 'Show own avatar to others';
 $string['myavatarform:showotheravatars'] = 'Show other avatars';
 $string['myavatarform:shownumberofavatars'] = 'Show number of avatars';
 $string['myavatarform:avatarsmovement'] = 'Avatars movement';

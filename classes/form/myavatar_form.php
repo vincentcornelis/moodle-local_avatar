@@ -54,6 +54,14 @@ class myavatar_form extends moodleform {
 
         $mform->addElement(
             'advcheckbox',
+            'showownavatartoothers',
+            get_string('myavatarform:showownavatartoothers', 'local_avatar'),
+            ' ',
+            [0, 1]
+        );
+
+        $mform->addElement(
+            'advcheckbox',
             'showotheravatars',
             get_string('myavatarform:showotheravatars', 'local_avatar'),
             ' ',
