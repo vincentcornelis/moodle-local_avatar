@@ -81,9 +81,10 @@ class myavatar_form extends moodleform {
 
         $radioarray = [];
         $avatars = [
-            '1' => '../pix/avatar1.png',
-            '2' => '../pix/avatar1.png',
-            '3' => '../pix/avatar1.png',
+            '1' => '../pix/goose_basic.gif',
+            '2' => '../pix/r2d2.gif',
+            '3' => '../pix/seal_basic.gif',
+            '4' => '../pix/stormtrooper.gif',
         ];
 
         foreach ($avatars as $value => $image) {
