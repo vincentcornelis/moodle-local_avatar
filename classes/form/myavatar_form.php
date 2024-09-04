@@ -26,6 +26,7 @@
 
 namespace local_avatar\form;
 
+use local_avatar\avatar_information;
 use moodleform;
 
 require_once($CFG->libdir . '/formslib.php');
@@ -85,12 +86,8 @@ class myavatar_form extends moodleform {
         $mform->addHelpButton('avatarsmovement', 'myavatarform:avatarsmovement', 'local_avatar');
 
         $radioarray = [];
-        $avatars = [
-            '1' => '../pix/goose_basic.gif',
-            '2' => '../pix/r2d2.gif',
-            '3' => '../pix/seal_basic.gif',
-            '4' => '../pix/stormtrooper.gif',
-        ];
+
+        $avatars = avatar_information::get_avatars();
 
         foreach ($avatars as $value => $image) {
             $img = \html_writer::empty_tag('img', ['src' => $image, 'alt' => $value, 'style' => 'width: 50px; height: 50px;']);
