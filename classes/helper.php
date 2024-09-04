@@ -35,16 +35,51 @@ namespace local_avatar;
  * @copyright 04/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
-class helper {
+class helper
+{
 
-    public static function get_user_visible_users() {
-        global $USER;
+    public static function get_user_visible_users()
+    {
+        global $USER, $COURSE, $DB;
 
-        // TODO: Check wich users the user can see.
-        // Check if there are groups set in the course.
-        // Check if there are groups, which group(s) the user is in.
-        // Return the user-ids of the users that are in the same group(s) as the user.
-        // Make sure only active enrollments are returned.
+        $course = get_course($COURSE->id);
+        $context = \context_course::instance($course->id);
+
+        if (!is_enrolled($context, $USER->id)) {
+            return [];
+        }
+
+        $visibleusers = [];
+  
+        if ($course->groupmode == NOGROUPS) {
+            // Return all users in the course.
+            $sql = "SELECT u.id
+                FROM {user} u
+                JOIN {user_enrolments} ue ON ue.userid = u.id
+                JOIN {enrol} e ON e.id = ue.enrolid
+                WHERE e.courseid = :courseid AND ue.status = :active";
+
+            // Parameters for the query
+            $params = [
+                'courseid' => $COURSE->id,
+                'active' => ENROL_USER_ACTIVE
+            ];
+
+            // Execute the query and return the list of user IDs.
+            $visibleusers = $DB->get_fieldset_sql($sql, $params);
+            return $visibleusers;
+        }
+        // Check if the user is enrolled in the course and has an active enrollment.
+        $usergroups = groups_get_user_groups($COURSE->id, $USER->id);
+        $usergroups = reset($usergroups);
+
+        // Check if the user is in any groups.
+        if (!empty($usergroups)) {
+
+            return array_keys(groups_get_groups_members($usergroups));
+        }
+
+        return $visibleusers;
     }
 
 }
