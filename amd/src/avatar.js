@@ -20,30 +20,35 @@
  *
  * @copyright 28/03/2022 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
- **/
+ */
+export const init = () => {
+    /* eslint-disable no-console */
+    console.log("The init function was called2");
+    /* eslint-enable no-console */
+    var avatarMoodlenautDiv = document.createElement('div');
+    avatarMoodlenautDiv.style.cssText = 'position:absolute;' +
+        'width:100%;' +
+        'height:200px;' +
+        'z-index:-10;' +
+        'overflow:hidden;bottom:0';
+    avatarMoodlenautDiv.setAttribute("id", "avatar-moodlenautspace");
+    document.getElementById("page-wrapper").appendChild(avatarMoodlenautDiv);
+    //THE GOOSE INJECTION
+    var avatarMoodlenautContainer = document.createElement('div');
+    avatarMoodlenautContainer.style.cssText = 'position:absolute;' +
+        'width:64px;height:64px;' +
+        'z-index:100;' +
+        'background-image:url("../local/avatar/pix/r2d2.gif");' +
+        'overflow:hidden;bottom:0px;' +
+        'background-size:cover;';
+    avatarMoodlenautContainer.setAttribute("id", "avatar-moodlenautContainer");
+    avatarMoodlenautContainer.style.left = "10px";
+    avatarMoodlenautContainer.style.transition = "left 20s linear";
+    document.getElementById("avatar-moodlenautspace").appendChild(avatarMoodlenautContainer);
+    //MOVE THE GOOSE
+    //Main(3000,avatarMoodlenautContainer);
+    setInterval(()=> {
+        avatarMoodlenautContainer.style.left = "90%";
+    }, 3000);
+};
 
-document.addEventListener('DOMContentLoaded', function () {
-    const imageContainer = document.getElementById('image-container');
-    const screenWidth = window.innerWidth;
-    const animationDuration = 5; // Duration in seconds.
-
-    // Set the initial position of the image.
-    imageContainer.style.left = ` - 100px`;
-
-    // Function to move the image across the screen.
-    function moveImage() {
-        imageContainer.style.transition = `left ${animationDuration}s linear`;
-        imageContainer.style.left = `${screenWidth}px`;
-
-        // Reset the image position after it exits the screen.
-        setTimeout(() => {
-            imageContainer.style.transition = 'none';
-            imageContainer.style.left = ` - 100px`;
-            // Restart the animation.
-            setTimeout(moveImage, 50);
-        }, animationDuration * 1000);
-    }
-
-    // Start the animation.
-    moveImage();
-});

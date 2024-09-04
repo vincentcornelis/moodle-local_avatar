@@ -23,20 +23,12 @@
  * @copyright 03/09/2024 LdesignMedia.nl - Luuk Verhoeven
  * @author    Vincent Cornelis
  **/
+defined('MOODLE_INTERNAL') || die();
 
-function local_avatar_before_footer(): void {
-    global $PAGE, $CFG;
 
-    // Check if we're on a course page.
-    if ($PAGE->pagetype === 'course-view') {
-        // Include the JavaScript file.
-        $PAGE->requires->js('/local/avatar/amd/src/avatar.js');
-
-        // Add the HTML for the moving image.
-        echo '<div id="image-container">
-                <img id="moving-image" src="' . $CFG->wwwroot . '/local/avatar/pix/pic.png" alt="Moving Image">
-              </div>';
-    }
+function local_avatar_before_footer() {
+    global $PAGE,$CFG;
+    $PAGE->requires->js_call_amd('local_avatar/avatar', 'init');
 }
 
 
