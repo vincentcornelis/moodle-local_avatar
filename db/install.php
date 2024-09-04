@@ -43,51 +43,52 @@ function xmldb_local_avatar_install(): void {
     // Add course customfield category.
     $categoryname = 'Avatar';
 
-    $category = [
-        'name' => $categoryname,
-        'descriptionformat' => 0,
-        'sortorder' => $sortorder,
-        'timecreated' => time(),
-        'timemodified' => time(),
-        'component' => 'core_course',
-        'area' => 'course',
-        'itemid' => 0,
-        'contextid' => 1,
-    ];
+    if (!$DB->record_exists('customfield_category', ['name' => $categoryname])) {
+        $category = [
+            'name' => $categoryname,
+            'descriptionformat' => 0,
+            'sortorder' => $sortorder,
+            'timecreated' => time(),
+            'timemodified' => time(),
+            'component' => 'core_course',
+            'area' => 'course',
+            'itemid' => 0,
+            'contextid' => 1,
+        ];
 
-    $categoryid = $DB->insert_record('customfield_category', $category);
+        $categoryid = $DB->insert_record('customfield_category', $category);
+    }
 
     // Add course customfield.
     $shortname = 'avatar_enabled';
 
-    if ($DB->record_exists('customfield_field', ['shortname' => $shortname])) {
-        return;
+    if (!$DB->record_exists('customfield_field', ['shortname' => $shortname])) {
+
+        $name = 'Avatar enabled';
+        $configdata = json_encode([
+            'required' => "0",
+            'uniquevalues' => "0",
+            'checkbydefault' => "1",
+            'locked' => "0",
+            'visibility' => "2",
+        ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $customfield = [
+            'shortname' => $shortname,
+            'name' => $name,
+            'type' => 'checkbox',
+            'descriptionformat' => 1,
+            'sortorder' => 0,
+            'categoryid' => $categoryid,
+            'configdata' => $configdata,
+            'timecreated' => time(),
+            'timemodified' => time(),
+        ];
+
+        $DB->insert_record('customfield_field', $customfield);
     }
-
-    $name = 'Avatar enabled';
-    $configdata = json_encode([
-        'required' => "0",
-        'uniquevalues' => "0",
-        'checkbydefault' => "1",
-        'locked' => "0",
-        'visibility' => "2",
-    ],
-        JSON_THROW_ON_ERROR
-    );
-
-    $customfield = [
-        'shortname' => $shortname,
-        'name' => $name,
-        'type' => 'checkbox',
-        'descriptionformat' => 1,
-        'sortorder' => 0,
-        'categoryid' => $categoryid,
-        'configdata' => $configdata,
-        'timecreated' => time(),
-        'timemodified' => time(),
-    ];
-
-    $DB->insert_record('customfield_field', $customfield);
 
     avatar_information::create_random_avatars();
 

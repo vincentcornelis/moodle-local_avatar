@@ -37,9 +37,7 @@ if ($hassiteconfig) {
             'local_avatar/enabled',
             get_string('settings:enable', 'local_avatar'),
             get_string('settings:enable_desc', 'local_avatar'),
-            1,
-            get_string('settings:enabled', 'local_avatar'),
-            get_string('settings:disabled', 'local_avatar')
+            true,
         )
     );
 

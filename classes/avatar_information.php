@@ -39,6 +39,13 @@ use core_user;
  **/
 class avatar_information {
 
+    /**
+     * Get avatars
+     *
+     * Fixed indexes for now
+     *
+     * @return string[]
+     */
     public static function get_avatars() {
 
         $avatars = [
@@ -57,11 +64,60 @@ class avatar_information {
     }
 
     /**
-     * User's settings.
+     * Create random avatars for all existing users.
      *
      * @var object
      */
     private object $settings;
+
+    public static function create_random_avatars(): void {
+        global $DB;
+
+        $users = $DB->get_records('user', [], '', 'id');
+
+        foreach ($users as $user) {
+            self::create_random_avatar($user->id);
+        }
+
+    }
+
+    /**
+     * Create random avatar for user id.
+     *
+     * @param $userid
+     *
+     * @return void
+     */
+    public static function create_random_avatar($userid): void {
+        global $DB;
+
+        $min = array_key_first(self::get_avatars());
+        $max = array_key_last(self::get_avatars());
+
+        $avatar = rand($min, $max);
+
+        $data = (object) [
+            'userid' => $userid,
+            'selectedavatar' => $avatar,
+            'showownavatar' => 1,
+            'showownavatartoothers' => 1,
+            'showotheravatars' => 1,
+            'avatarsmovement' => 1,
+            'shownumberofavatars' => 50,
+        ];
+
+        // Update if exists.
+        if ($record = $DB->get_record('local_avatar', ['userid' => $userid])) {
+            $data->id = $record->id;
+            $DB->update_record('local_avatar', $data);
+
+            return;
+        }
+
+        // Otherwise insert.
+        $DB->insert_record('local_avatar', $data);
+
+    }
 
     /**
      * Get necessary information for JavaScript to be able to display avatars.
