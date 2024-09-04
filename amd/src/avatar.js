@@ -41,8 +41,9 @@ export const init = (information) => {
     avatarMoodlenautDiv.style.cssText = 'position:absolute;' +
         'width:100%;' +
         'height:200px;' +
-        'z-index:-10;' +
+        'z-index:100;' +
         'overflow:hidden;' +
+        'pointer-events: none;'+
         'bottom:0';
     avatarMoodlenautDiv.setAttribute("id", "avatar-moodlenautspace");
     document.getElementById("page-wrapper").appendChild(avatarMoodlenautDiv);
