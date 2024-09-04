@@ -151,6 +151,7 @@ class avatar_information {
             'userid' => $USER->id,
             'movement' => $this->movement_enabled(),
             'avatars' => $this->get_user_visible_avatars(),
+            'avatargifs' => self::get_avatars(),
         ];
 
     }
