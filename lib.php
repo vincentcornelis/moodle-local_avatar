@@ -25,6 +25,7 @@
  **/
 
 require_once($CFG->dirroot . '/local/avatar/classes/helper.php');
+require_once($CFG->dirroot . '/local/avatar/classes/avatar_information.php');
 
 use local_avatar\avatar_information;
 use local_avatar\helper;

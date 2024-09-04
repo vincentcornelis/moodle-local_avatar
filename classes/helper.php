@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
+ * Helper functions
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -71,7 +71,10 @@ class helper {
             // Execute the query and return the list of user IDs.
             $visibleusers = $DB->get_fieldset_sql($sql, $params);
 
-            return $visibleusers;
+            // Unset own user ID, might get added later.
+            return array_filter($visibleusers, static function($visibleuser) use ($USER) {
+                return $visibleuser !== $USER->id;
+            });
         }
         // Check if the user is enrolled in the course and has an active enrollment.
         $usergroups = groups_get_user_groups($COURSE->id, $USER->id);
@@ -85,12 +88,23 @@ class helper {
         return $visibleusers;
     }
 
+    /**
+     * Check if avatars are enabled globally and in course.
+     * 
+     * @return bool
+     */
     public static function avatars_enabled() {
+        global $COURSE, $DB;
 
-        return true;
+        if (get_config('local_avatar', 'enabled')) {
+            $customfieldid = $DB->get_field('customfield_field', 'id', ['shortname' => 'avatar_enabled']);
+            $customfieldvalue = $DB->get_field('customfield_data', 'data', ['fieldid' => $customfieldid, 'instanceid' => $COURSE->id]);
+            if ($customfieldvalue) {
+                return true;
+            }
+        }
 
-        // TODO: Check if local_avatar is enbabled on global config (get_config('local_avatar', 'enabled')).
-        // TODO: Check if local_avatar is enabled on course setting (course customfield).
+        return false;
     }
 
 }
