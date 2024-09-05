@@ -90,6 +90,9 @@ function xmldb_local_avatar_install(): void {
         $DB->insert_record('customfield_field', $customfield);
     }
 
+    // TODO: Improvement: This will load ALL users on an environment to create avatars for during install...
+    // This will of course not be a problem on a small environment, but on a large environment this could be a problem.
+    // Maybe move this to a scheduled task, and enable the plug-in when all is converted?
     avatar_information::create_random_avatars();
 
 }
